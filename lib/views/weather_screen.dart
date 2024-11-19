@@ -50,6 +50,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
         isLoading = false;
       });
       print('Failed to load BMKG: $error');
+      Navigator.pop(context, '$error');
     }
   }
 

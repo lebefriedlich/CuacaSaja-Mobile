@@ -8,7 +8,8 @@ class BmkgRepository {
 
   Future<List<BMKGModel>> fetchBMKG(String kode) async {
     final response = await http.get(Uri.parse('$baseUrl$kode'));
-
+    print('$baseUrl$kode');
+    
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
 
@@ -95,6 +96,8 @@ class BmkgRepository {
       }
 
       return weatherList;
+    } else if (response.statusCode == 404) {
+      throw Exception('Data BMKG Tidak Tersedia, Coba Pilih Daerah Lain');
     } else {
       throw Exception('Failed to load weather data');
     }

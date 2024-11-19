@@ -100,12 +100,22 @@ class _AddLocationPickerState extends State<AddLocationPicker> {
     if (selectedCode != null && selectedCode!.isNotEmpty) {
       if (await _service.addLocationCode(selectedCode!) ==
           "Lokasi Berhasil Ditambahkan") {
-        Navigator.push(
+        final error = await Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => WeatherScreen(kode: selectedCode!),
           ),
         );
+
+        if (error != null && error is String) {
+          _service.removeLocationCode(selectedCode!);
+          
+          String cleanedError = error.replaceAll("Exception:", "").trim();
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(cleanedError)),
+          );
+        }
       } else if (await _service.addLocationCode(selectedCode!) ==
           "Lokasi Sudah Ada") {
         ScaffoldMessenger.of(context).showSnackBar(
