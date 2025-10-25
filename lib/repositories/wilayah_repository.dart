@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '/models/wilayah_model.dart';
 
 class WilayahRepository {
-  final String baseUrl = 'https://mhna.my.id/api/wilayah';
+  final String baseUrl = 'https://wilayah-indonesia.mhna.my.id/api/wilayah';
 
   Future<List<Provinsi>> fetchProvinsi() async {
     final response = await http.get(Uri.parse('$baseUrl/provinsi'));
